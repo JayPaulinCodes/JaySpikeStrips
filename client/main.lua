@@ -96,15 +96,16 @@ Citizen.CreateThread(function()
                 
                 -- Find the closest spike object and it's coords and distance
                 local closestSpikes, closestSpikesCoords, distanceFromSpikes = getClosestSpikesToCoords(vehicleTireCoords.x, vehicleTireCoords.y, vehicleTireCoords.z, 15.0)
+                -- print("\n\n" .. tire, closestSpikes, closestSpikesCoords, distanceFromSpikes)
 
                 -- Check if the tire is on the spike
                 if distanceFromSpikes ~= nil then
                     if distanceFromSpikes < 1.8 then
                         local isTireCompletelyPopped = IsVehicleTyreBurst(vehicle, vehicleTires[tire].index, true)
                         local isTirePartialyPopped = IsVehicleTyreBurst(vehicle, vehicleTires[tire].index, false)
-    
+
                         -- If the tire is not completley popped OR is partialy popped, pop the tire
-                        if not isTireCompletelyPopped and isTirePartialyPopped then
+                        if not isTireCompletelyPopped or isTirePartialyPopped then
                             SetVehicleTyreBurst(vehicle, vehicleTires[tire].index, false, 1000.0)
                         end
                     end
